@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "62430270723",
+    "project_id": "jeveuxproviderapp-c8124",
+    "storage_bucket": "jeveuxproviderapp-c8124.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:62430270723:android:21181f8cc30a6453cb4536",
+        "android_client_info": {
+          "package_name": "com.jv_provider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "62430270723-vp6l7rmsfonfgi5u7ari1lraa1thebo1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJzLxbnSawJABJlKpUpopVZGt9Adp08uQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "62430270723-vp6l7rmsfonfgi5u7ari1lraa1thebo1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "62430270723-dfg7dsp1u0jelsct4nfhus1ulsnfth2i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.jeveuxservice.provider"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
