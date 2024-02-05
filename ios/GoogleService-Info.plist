@@ -2,18 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>62430270723-dfg7dsp1u0jelsct4nfhus1ulsnfth2i.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.62430270723-dfg7dsp1u0jelsct4nfhus1ulsnfth2i</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAo9cqMY4p9ob2K6cvvw2x7ngEy2QHoKLo</string>
+	<string>AIzaSyD4huhdEHw0e8GWjZUsw3fjP9GrMDEyEbg</string>
 	<key>GCM_SENDER_ID</key>
-	<string>869561111355</string>
+	<string>62430270723</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>org.reactjs.native.example.JV-Provider</string>
+	<string>com.jeveuxservice.provider</string>
 	<key>PROJECT_ID</key>
-	<string>jeveuxproviderapp</string>
+	<string>jeveuxproviderapp-c8124</string>
 	<key>STORAGE_BUCKET</key>
-	<string>jeveuxproviderapp.appspot.com</string>
+	<string>jeveuxproviderapp-c8124.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:869561111355:ios:8d5f1f373b7b14062d5d1e</string>
+	<string>1:62430270723:ios:cdd6fc890b4d3c99cb4536</string>
 </dict>
 </plist>
