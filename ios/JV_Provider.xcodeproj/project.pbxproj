@@ -522,12 +522,12 @@
 				CODE_SIGN_ENTITLEMENTS = JV_Provider/JV_Provider.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4JYLWFP37P;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = JV_Provider/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "JeVeux Provider";
+				INFOPLIST_KEY_CFBundleDisplayName = Provider;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -557,11 +557,11 @@
 				CODE_SIGN_ENTITLEMENTS = JV_Provider/JV_Provider.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4JYLWFP37P;
 				INFOPLIST_FILE = JV_Provider/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "JeVeux Provider";
+				INFOPLIST_KEY_CFBundleDisplayName = Provider;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

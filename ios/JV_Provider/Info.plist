@@ -35,8 +35,16 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs access to the camera to let the provider upload photos for identificaiton.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We need access to your location while using the app to provide location-based services.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We need access to your location while using the app to provide location-based services.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>We need access to your location while using the app to provide location-based services.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs access to the camera to let the provider upload photos for identificaiton.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -51,5 +59,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 </dict>
 </plist>
