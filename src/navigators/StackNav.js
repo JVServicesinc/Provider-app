@@ -47,8 +47,9 @@ import OnBoarding from '../screens/auth/Onboarding';
 const Stack = createStackNavigator();
 
 export default function StackNav() {
-  const AuthReducer = useSelector(state => state.AuthReducer);
+  const SplashReducer = useSelector(state => state.SplashReducer);
   const LanguageReducer = useSelector(state => state.LanguageReducer);
+  const AuthReducer = useSelector(state => state.AuthReducer);
   // const [language, setLanguage] = useState(null);
 
   // useEffect(() => {
@@ -63,69 +64,150 @@ export default function StackNav() {
   //   });
   // }, []);
 
+  const OnBoard = {
+    OnBoarding: OnBoarding,
+  };
+
+  const Language = {
+    LanguageSplash: LanguageSplash,
+  };
+
+  const Auth = {
+    Login: Login,
+    SignUp: SignUp,
+    Verification: Verification,
+    ForgotPassword: ForgotPassword,
+    OTPverification: OTPverification,
+    SignUp2: SignUp2,
+    SignUp3: SignUp3,
+    PanDetail: PanDetail,
+    SinNumber: SinNumber,
+    ChangePassword: ChangePassword,
+  };
+
+  const Main = {
+    TabNavigator: TabNavigator,
+    BookingDetails: BookingDetails,
+    Filter: Filter,
+    Notification: Notification,
+    Subscription: Subscription,
+    EditProfile: EditProfile,
+    BankDetails: BankDetails,
+    Refer_Earn: Refer_Earn,
+    OfflineReason: OfflineReason,
+    DelayBooking: DelayBooking,
+    WithoutMask: WithoutMask,
+    AddPicture: AddPicture,
+    WinnerAnimation: WinnerAnimation,
+    ChatScreen: ChatScreen,
+    AlertNotify: AlertNotify,
+    ServiceOtp: ServiceOtp,
+    AddServicePicture: AddServicePicture,
+    StartService: StartService,
+    MapViewPage: MapViewPage,
+    Depositmoney: Depositmoney,
+    RateCard: RateCard,
+    Slots: Slots,
+    MapScreen: MapScreen,
+  };
+
   const Screens =
-    AuthReducer?.token == null
-      ? {
-          Onboarding:OnBoarding,
-          Login: Login,
-          SignUp: SignUp,
-          Verification: Verification,
-          ForgotPassword: ForgotPassword,
-          OTPverification: OTPverification,
-          SignUp2: SignUp2,
-          SignUp3: SignUp3,
-          PanDetail: PanDetail,
-          SinNumber: SinNumber,
-          ChangePassword: ChangePassword,
-        }
-      : {
-          TabNavigator: TabNavigator,
-          BookingDetails: BookingDetails,
-          Filter: Filter,
-          Notification: Notification,
-          Subscription: Subscription,
-          EditProfile: EditProfile,
-          BankDetails: BankDetails,
-          Refer_Earn: Refer_Earn,
-          OfflineReason: OfflineReason,
-          DelayBooking: DelayBooking,
-          WithoutMask: WithoutMask,
-          AddPicture: AddPicture,
-          WinnerAnimation: WinnerAnimation,
-          ChatScreen: ChatScreen,
-          AlertNotify: AlertNotify,
-          ServiceOtp: ServiceOtp,
-          AddServicePicture: AddServicePicture,
-          StartService: StartService,
-          MapViewPage: MapViewPage,
-          Depositmoney: Depositmoney,
-          RateCard: RateCard,
-          Language: Language,
-          Slots: Slots,
-          MapScreen: MapScreen,
-        };
-  if (AuthReducer?.isLoading) {
-    // return <Splash />;
-    // return <LanguageSplash />;
-    // return <LanguageSplash />;
-    console.log('languae',LanguageReducer.isLanguageSelected)
-    if (LanguageReducer.isLanguageSelected == null) {
-      return <LanguageSplash />;
-    } else {
-      // pibkc the language async - i18n change language()
-      return <Login />;
-    }
+    SplashReducer?.isOnBoarded == null
+      ? OnBoard
+      : LanguageReducer?.isLanguageSelected == null
+      ? Language
+      : AuthReducer?.token == null
+      ? Auth
+      : Main;
+
+  // const Screens =
+  //   AuthReducer?.token == null
+  //     ? {
+  //         Onboarding: OnBoarding,
+  //         Login: Login,
+  //         SignUp: SignUp,
+  //         Verification: Verification,
+  //         ForgotPassword: ForgotPassword,
+  //         OTPverification: OTPverification,
+  //         SignUp2: SignUp2,
+  //         SignUp3: SignUp3,
+  //         PanDetail: PanDetail,
+  //         SinNumber: SinNumber,
+  //         ChangePassword: ChangePassword,
+  //       }
+  //     : {
+  //         TabNavigator: TabNavigator,
+  //         BookingDetails: BookingDetails,
+  //         Filter: Filter,
+  //         Notification: Notification,
+  //         Subscription: Subscription,
+  //         EditProfile: EditProfile,
+  //         BankDetails: BankDetails,
+  //         Refer_Earn: Refer_Earn,
+  //         OfflineReason: OfflineReason,
+  //         DelayBooking: DelayBooking,
+  //         WithoutMask: WithoutMask,
+  //         AddPicture: AddPicture,
+  //         WinnerAnimation: WinnerAnimation,
+  //         ChatScreen: ChatScreen,
+  //         AlertNotify: AlertNotify,
+  //         ServiceOtp: ServiceOtp,
+  //         AddServicePicture: AddServicePicture,
+  //         StartService: StartService,
+  //         MapViewPage: MapViewPage,
+  //         Depositmoney: Depositmoney,
+  //         RateCard: RateCard,
+  //         Slots: Slots,
+  //         MapScreen: MapScreen,
+  //       };
+  console.log(
+    'State Update --- ',
+    SplashReducer?.isOnBoarded,
+    LanguageReducer?.isLanguageSelected,
+    AuthReducer?.token,
+  );
+
+  if (SplashReducer?.isLoading === null) {
+    return <Splash />;
   } else {
     return (
-      <NavigationContainer ref={navigationRef}>
-        <Stack.Navigator screenOptions={{headerShown: false}}>
-          {Object.entries({
-            ...Screens,
-          }).map(([name, component]) => {
-            return <Stack.Screen key={name} name={name}  component={component} />;
-          })}
-        </Stack.Navigator>
-      </NavigationContainer>
+      <>
+        <NavigationContainer ref={navigationRef}>
+          <Stack.Navigator
+            screenOptions={{headerShown: false, gestureEnabled: false}}>
+            {Object.entries({
+              ...Screens,
+            }).map(([name, component], index) => {
+              return (
+                <Stack.Screen key={index} name={name} component={component} />
+              );
+            })}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </>
     );
   }
+  // if (AuthReducer?.isLoading) {
+  //   if (SplashReducer?.isOnBoarded == null) {
+  //     return <OnBoarding />;
+  //   } else if (LanguageReducer.isLanguageSelected == null) {
+  //     return <LanguageSplash />;
+  //   } else {
+  //     return <Login />;
+  //   }
+  // } else {
+  //   return (
+  //     <NavigationContainer ref={navigationRef}>
+  //       <Stack.Navigator screenOptions={{headerShown: false}}>
+  //         {Object.entries({
+  //           ...Screens,
+  //         }).map(([name, component]) => {
+  //           return (
+  //             <Stack.Screen key={name} name={name} component={component} />
+  //           );
+  //         })}
+  //       </Stack.Navigator>
+  //     </NavigationContainer>
+  //   );
+  // }
 }

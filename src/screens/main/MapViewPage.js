@@ -1,24 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from 'react';
 import {
   Alert,
   FlatList,
-  Image, Linking,
+  Image,
+  Linking,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-} from "react-native";
+} from 'react-native';
 import {View} from 'react-native';
 import {Fonts, IMAGES} from '../../themes/Themes';
 import normalize from '../../utils/helpers/normalize';
 import Modal from 'react-native-modal';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
-import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from "react-native-maps";
-import { io } from "socket.io-client";
-import Geolocation from "react-native-geolocation-service";
+import MapView, {Marker, Polyline, PROVIDER_GOOGLE} from 'react-native-maps';
+import {io} from 'socket.io-client';
+import Geolocation from 'react-native-geolocation-service';
 
-const decodePolyline = (encoded) => {
+const decodePolyline = encoded => {
   const points = [];
   let index = 0,
     lat = 0,
@@ -48,42 +49,43 @@ const decodePolyline = (encoded) => {
     const dlng = (result & 1) !== 0 ? ~(result >> 1) : result >> 1;
     lng += dlng;
 
-    points.push({ latitude: lat / 1e5, longitude: lng / 1e5 });
+    points.push({latitude: lat / 1e5, longitude: lng / 1e5});
   }
   return points;
 };
 
 function handleLocationPermissionDenied() {
   Alert.alert(
-    "Location Permission Denied",
-    "This app needs location permissions to function properly. You can grant them in app settings.",
+    'Location Permission Denied',
+    'This app needs location permissions to function properly. You can grant them in app settings.',
     [
       {
-        text: "Cancel",
-        style: "cancel"
+        text: 'Cancel',
+        style: 'cancel',
       },
-      { text: "Open Settings", onPress: openAppSettings }
-    ]
+      {text: 'Open Settings', onPress: openAppSettings},
+    ],
   );
 }
 
 function openAppSettings() {
   Linking.openSettings().catch(() => {
-    Alert.alert("Unable to open settings");
+    Alert.alert('Unable to open settings');
   });
 }
 
 function MapViewPage(props) {
   const [customerModal, setcustomerModal] = useState(false);
   const [directions, setDirections] = useState([]);
-  const [currentRegion, setCurrentRegion] = useState<{}>({
-    latitude: 0.0,
-    longitude: 0.0,
-    latitudeDelta: 0.0,
-    longitudeDelta: 0.0
-  });
-
-
+  const [currentRegion, setCurrentRegion] =
+    useState <
+    {} >
+    {
+      latitude: 0.0,
+      longitude: 0.0,
+      latitudeDelta: 0.0,
+      longitudeDelta: 0.0,
+    };
 
   const detailsData = [
     {
@@ -129,15 +131,15 @@ function MapViewPage(props) {
     // const origin = `${'17.3676'},${'78.5246'}`;
     // const destination = `${'17.4374'},${'78.4487'}`;
 
-    const origin = "17.3676,78.5246";
-    const destination = "17.4374,78.4487";
+    const origin = '17.3676,78.5246';
+    const destination = '17.4374,78.4487';
 
     fetch(
-      `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=AIzaSyDJzLxbnSawJABJlKpUpopVZGt9Adp08uQ`
+      `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=AIzaSyDJzLxbnSawJABJlKpUpopVZGt9Adp08uQ`,
     )
       .then(response => response.json())
       .then(data => {
-        console.log("Routes Data -- ", data);
+        // console.log('Routes Data -- ', data);
         if (data.routes.length > 0) {
           const route = data.routes[0].overview_polyline.points;
           const decodedRoute = decodePolyline(route);
@@ -145,21 +147,20 @@ function MapViewPage(props) {
 
           setDirections(decodedRoute);
         } else {
-          console.log("No Routes Found -- ", origin, destination);
+          // console.log('No Routes Found -- ', origin, destination);
         }
       })
       .catch(error => {
-        console.error("Error fetching directions:", error);
+        // console.error('Error fetching directions:', error);
       });
   };
-  const socket = io("http://159.203.18.75:3000");
+  const socket = io('http://159.203.18.75:3000');
 
   const connectSocket = () => {
-    socket.on("connect", () => {
-      console.log("Connected to socket server");
+    socket.on('connect', () => {
+      console.log('Connected to socket server');
     });
   };
-
 
   useEffect(() => {
     handleDirections();
@@ -167,12 +168,12 @@ function MapViewPage(props) {
   }, []);
 
   function sendCurrentLocation() {
-    getCurrentLocation()
-    socket.emit("update-live-data", {
+    getCurrentLocation();
+    socket.emit('update-live-data', {
       latitude: currentRegion?.latitude,
-      longitude: currentRegion?.longitude
+      longitude: currentRegion?.longitude,
     });
-    printSocketLiveLocationUpdate()
+    printSocketLiveLocationUpdate();
   }
 
   function getCurrentLocation() {
@@ -185,29 +186,29 @@ function MapViewPage(props) {
           longitude: position.coords.longitude,
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
-          heading: position?.coords.heading
+          heading: position?.coords.heading,
         };
-        console.log("currentRegion -- ", currentRegion);
+        console.log('currentRegion -- ', currentRegion);
 
         // setCurrentRegion(currentRegion);
       },
       error => {
-        console.log("error : ", error);
+        console.log('error : ', error);
       },
       {
         // enableHighAccuracy: false,
         // timeout: 200000,
         // maximumAge: 3600000,
         enableHighAccuracy: true,
-        timeout: 3000
+        timeout: 3000,
         // maximumAge: 10000,
-      }
+      },
     );
   }
 
   function printSocketLiveLocationUpdate() {
-    socket.on("live-data-updated", (data) => {
-      console.log("Live data updated ===> ", data);
+    socket.on('live-data-updated', data => {
+      console.log('Live data updated ===> ', data);
     });
   }
 
@@ -246,7 +247,6 @@ function MapViewPage(props) {
     );
   };
 
-
   return (
     <View style={{flex: 1}}>
       {/*<MapView*/}
@@ -259,24 +259,24 @@ function MapViewPage(props) {
       {/*  }}*/}
       {/*/>*/}
       <MapView
-        style={{ flex: 1 }}
+        style={{flex: 1}}
         initialRegion={{
           latitude: 17.3676,
           longitude: 78.5246,
           latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421
+          longitudeDelta: 0.0421,
         }}>
         <Marker
           coordinate={{
             latitude: 17.3676,
-            longitude: 78.5246
+            longitude: 78.5246,
           }}
           title="Origin"
         />
         <Marker
           coordinate={{
             latitude: 17.4374,
-            longitude: 78.4487
+            longitude: 78.4487,
           }}
           title="Destination"
         />
@@ -364,7 +364,6 @@ function MapViewPage(props) {
           alignSelf: 'center',
           width: '100%',
         }}>
-
         {/* Request Service Modal Content */}
 
         <View
@@ -447,7 +446,7 @@ function MapViewPage(props) {
           </ScrollView>
 
           <TouchableOpacity onPress={sendCurrentLocation}>
-            <Text style={{ color: "black" }}>Socket update location</Text>
+            <Text style={{color: 'black'}}>Socket update location</Text>
           </TouchableOpacity>
           <Button
             width={'90%'}

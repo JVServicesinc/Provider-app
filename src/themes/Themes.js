@@ -1,4 +1,10 @@
 export const IMAGES = {
+  image1: require('../assets/images/image1.png'),
+  image2: require('../assets/images/image2.png'),
+  image3: require('../assets/images/image3.png'),
+  image4: require('../assets/images/image4.png'),
+  RightAngle: require('../assets/images/RightAngle.png'),
+  Language_Prefer: require('../assets/json/language_prefer.json'),
   splashScreen: require('../assets/images/Splash.png'),
   logo: require('../assets/images/logo.jpeg'),
   Down: require('../assets/images/Down.png'),
@@ -99,10 +105,10 @@ export const IMAGES = {
   emoji: require('../assets/images/party2.gif'),
   Cup: require('../assets/images/cup.png'),
   Bag: require('../assets/images/bag.png'),
-  img1:require('../assets/images/img1.png'),
-  img2:require('../assets/images/img2.png'),
-  img3:require('../assets/images/img3.png'),
-  img4:require('../assets/images/img4.png'),
+  img1: require('../assets/images/img1.png'),
+  img2: require('../assets/images/img2.png'),
+  img3: require('../assets/images/img3.png'),
+  img4: require('../assets/images/img4.png'),
 };
 export const Fonts = {
   PoppinsBold: 'Poppins-Bold',

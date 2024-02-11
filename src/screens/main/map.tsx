@@ -1,44 +1,46 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from 'react';
 import {
-  Alert, FlatList,
+  Alert,
+  FlatList,
   Image,
   ImageSourcePropType,
   Linking,
   Platform,
-  SafeAreaView, ScrollView,
+  SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   ToastAndroid,
   TouchableOpacity,
-  View
-} from "react-native";
-import MapView, { Marker, Polyline } from "react-native-maps";
-import { io } from "socket.io-client";
-import { PermissionsAndroid } from "react-native";
-import Geolocation from "react-native-geolocation-service";
-import { check, PERMISSIONS, request, RESULTS } from "react-native-permissions";
-import normalize from "../../utils/helpers/normalize";
-import { Fonts, IMAGES } from "../../themes/Themes";
-import Header from "../../components/Header";
-import Modal from "react-native-modal";
-import Button from "../../components/Button";
+  View,
+} from 'react-native';
+import MapView, {Marker, Polyline} from 'react-native-maps';
+import {io} from 'socket.io-client';
+import {PermissionsAndroid} from 'react-native';
+import Geolocation from 'react-native-geolocation-service';
+import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
+import normalize from '../../utils/helpers/normalize';
+import {Fonts, IMAGES} from '../../themes/Themes';
+import Header from '../../components/Header';
+import Modal from 'react-native-modal';
+import Button from '../../components/Button';
 
-const socket = io("http://159.203.18.75:3000");
+const socket = io('http://159.203.18.75:3000');
 const MAP_PLATFROM_TYPE = Platform.OS === 'android' ? 'terrain' : 'standard';
-const PROVIDER_GOOGLE = "google";
+const PROVIDER_GOOGLE = 'google';
 
-const styles = StyleSheet.create(({
+const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    height: "100%"
+    width: '100%',
+    height: '100%',
   },
   safeArea: {
-    width: "100%",
-    height: "100%"
+    width: '100%',
+    height: '100%',
   },
   mapContainer: {
-    width: "100%",
-    height: "50%"
+    width: '100%',
+    height: '50%',
   },
   ViewDot: {
     height: normalize(4),
@@ -57,7 +59,7 @@ const styles = StyleSheet.create(({
     fontFamily: Fonts.PoppinsSemiBold,
     fontSize: normalize(12),
   },
-}));
+});
 
 type CurrentRegion = {
   latitude: number;
@@ -65,18 +67,18 @@ type CurrentRegion = {
   latitudeDelta: number;
   longitudeDelta: number;
   heading: number | null;
-}
+};
 
-export const MapScreen = (props: { navigation: { goBack: () => void; navigate: (arg0: string) => void; }; }) => {
+export const MapScreen = (props: {
+  navigation: {goBack: () => void; navigate: (arg0: string) => void};
+}) => {
   const [directions, setDirections] = useState<any[]>([]);
   const [currentRegion, setCurrentRegion] = useState<CurrentRegion>();
   const [timerCount, setTimerCount] = useState(0);
   const [customerModal, setcustomerModal] = useState(false);
 
-
   useEffect(() => {
-
-    if (Platform.OS == "android") {
+    if (Platform.OS == 'android') {
       requestLocationPermission();
     } else {
       checkLocationPermission();
@@ -101,26 +103,31 @@ export const MapScreen = (props: { navigation: { goBack: () => void; navigate: (
     const result = await check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
     switch (result) {
       case RESULTS.UNAVAILABLE:
-        console.log("This feature is not available (on this device / in this context)");
+        console.log(
+          'This feature is not available (on this device / in this context)',
+        );
         break;
       case RESULTS.DENIED:
         const newResult = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
-        console.log("The permission has not been requested / is denied but requestable", newResult);
+        console.log(
+          'The permission has not been requested / is denied but requestable',
+          newResult,
+        );
         break;
       case RESULTS.LIMITED:
-        console.log("The permission is limited: some actions are possible");
+        console.log('The permission is limited: some actions are possible');
         break;
       case RESULTS.GRANTED:
-        console.log("The permission is granted");
+        console.log('The permission is granted');
         break;
       case RESULTS.BLOCKED:
-        console.log("The permission is denied and not requestable anymore");
+        console.log('The permission is denied and not requestable anymore');
         break;
     }
   };
   function printSocketLiveLocationUpdate() {
-    socket.on("live-data-updated", (data) => {
-      console.log("Live data updated ===> ", data);
+    socket.on('live-data-updated', data => {
+      console.log('Live data updated ===> ', data);
     });
   }
 
@@ -129,21 +136,21 @@ export const MapScreen = (props: { navigation: { goBack: () => void; navigate: (
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
         {
-          title: "Location Permission",
-          message: "App needs access to your location",
-          buttonNeutral: "Ask Me Later",
-          buttonNegative: "Cancel",
-          buttonPositive: "OK"
-        }
+          title: 'Location Permission',
+          message: 'App needs access to your location',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        ToastAndroid.show("Location permission granted", ToastAndroid.SHORT);
-        console.log("You can access location");
+        ToastAndroid.show('Location permission granted', ToastAndroid.SHORT);
+        console.log('You can access location');
         getCurrentLocation();
       } else {
         // code of element to grant location
-        ToastAndroid.show("Location permission denied", ToastAndroid.SHORT);
-        console.log("Location permission denied");
+        ToastAndroid.show('Location permission denied', ToastAndroid.SHORT);
+        console.log('Location permission denied');
         handleLocationPermissionDenied();
       }
     } catch (err) {
@@ -153,31 +160,31 @@ export const MapScreen = (props: { navigation: { goBack: () => void; navigate: (
 
   function handleLocationPermissionDenied() {
     Alert.alert(
-      "Location Permission Denied",
-      "This app needs location permissions to function properly. You can grant them in app settings.",
+      'Location Permission Denied',
+      'This app needs location permissions to function properly. You can grant them in app settings.',
       [
         {
-          text: "Cancel",
-          style: "cancel"
+          text: 'Cancel',
+          style: 'cancel',
         },
-        { text: "Open Settings", onPress: openAppSettings }
-      ]
+        {text: 'Open Settings', onPress: openAppSettings},
+      ],
     );
   }
 
   function openAppSettings() {
     Linking.openSettings().catch(() => {
-      Alert.alert("Unable to open settings");
+      Alert.alert('Unable to open settings');
     });
   }
 
   function sendCurrentLocation() {
-    getCurrentLocation()
-    socket.emit("update-live-data", {
+    getCurrentLocation();
+    socket.emit('update-live-data', {
       latitude: currentRegion?.latitude,
-      longitude: currentRegion?.longitude
+      longitude: currentRegion?.longitude,
     });
-    printSocketLiveLocationUpdate()
+    printSocketLiveLocationUpdate();
   }
 
   function getCurrentLocation() {
@@ -190,23 +197,23 @@ export const MapScreen = (props: { navigation: { goBack: () => void; navigate: (
           longitude: position.coords.longitude,
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
-          heading: position?.coords.heading
+          heading: position?.coords.heading,
         };
-        console.log("currentRegion -- ", currentRegion);
+        console.log('currentRegion -- ', currentRegion);
 
         setCurrentRegion(currentRegion);
       },
       error => {
-        console.log("error : ", error);
+        console.log('error : ', error);
       },
       {
         // enableHighAccuracy: false,
         // timeout: 200000,
         // maximumAge: 3600000,
         enableHighAccuracy: true,
-        timeout: 3000
+        timeout: 3000,
         // maximumAge: 10000,
-      }
+      },
     );
   }
 
@@ -240,7 +247,7 @@ export const MapScreen = (props: { navigation: { goBack: () => void; navigate: (
       const dlng = (result & 1) !== 0 ? ~(result >> 1) : result >> 1;
       lng += dlng;
 
-      points.push({ latitude: lat / 1e5, longitude: lng / 1e5 });
+      points.push({latitude: lat / 1e5, longitude: lng / 1e5});
     }
     return points;
   };
@@ -251,15 +258,15 @@ export const MapScreen = (props: { navigation: { goBack: () => void; navigate: (
     // const origin = `${'17.3676'},${'78.5246'}`;
     // const destination = `${'17.4374'},${'78.4487'}`;
 
-    const origin = "17.3676,78.5246";
-    const destination = "17.4374,78.4487";
+    const origin = '17.3676,78.5246';
+    const destination = '17.4374,78.4487';
 
     fetch(
-      `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=AIzaSyDJzLxbnSawJABJlKpUpopVZGt9Adp08uQ`
+      `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=AIzaSyDJzLxbnSawJABJlKpUpopVZGt9Adp08uQ`,
     )
       .then(response => response.json())
       .then(data => {
-        console.log("Routes Data -- ", data);
+        // console.log("Routes Data -- ", data);
         if (data.routes.length > 0) {
           const route = data.routes[0].overview_polyline.points;
           const decodedRoute = decodePolyline(route);
@@ -267,21 +274,30 @@ export const MapScreen = (props: { navigation: { goBack: () => void; navigate: (
 
           setDirections(decodedRoute);
         } else {
-          console.log("No Routes Found -- ", origin, destination);
+          // console.log('No Routes Found -- ', origin, destination);
         }
       })
       .catch(error => {
-        console.error("Error fetching directions:", error);
+        console.error('Error fetching directions:', error);
       });
   };
 
   const connectSocket = () => {
-    socket.on("connect", () => {
-      console.log("Connected to socket server");
+    socket.on('connect', () => {
+      console.log('Connected to socket server');
     });
   };
 
-  const renderDetails = ({item} : {item: {image: ImageSourcePropType, title: string, time: string, info: string}}) => {
+  const renderDetails = ({
+    item,
+  }: {
+    item: {
+      image: ImageSourcePropType;
+      title: string;
+      time: string;
+      info: string;
+    };
+  }) => {
     return (
       <View
         style={{
@@ -316,41 +332,61 @@ export const MapScreen = (props: { navigation: { goBack: () => void; navigate: (
     );
   };
 
-  {/* OLD MAP VIEW CODE*/}
-  {/*<MapView*/}
-  {/*  style={{height: '100%', width: '100%'}}*/}
-  {/*  initialRegion={{*/}
-  {/*    latitude: 37.78825,*/}
-  {/*    longitude: -122.4324,*/}
-  {/*    latitudeDelta: 0.0922,*/}
-  {/*    longitudeDelta: 0.0421,*/}
-  {/*  }}*/}
-  {/*/>*/}
+  {
+    /* OLD MAP VIEW CODE*/
+  }
+  {
+    /*<MapView*/
+  }
+  {
+    /*  style={{height: '100%', width: '100%'}}*/
+  }
+  {
+    /*  initialRegion={{*/
+  }
+  {
+    /*    latitude: 37.78825,*/
+  }
+  {
+    /*    longitude: -122.4324,*/
+  }
+  {
+    /*    latitudeDelta: 0.0922,*/
+  }
+  {
+    /*    longitudeDelta: 0.0421,*/
+  }
+  {
+    /*  }}*/
+  }
+  {
+    /*/>*/
+  }
 
   return (
     <View style={{flex: 1}}>
       {/* NEW MAP VIEW SECTION */}
       <MapView
-        style={{ flex: 1 }}
+        style={{flex: 1}}
         mapType={MAP_PLATFROM_TYPE}
         provider={PROVIDER_GOOGLE}
         initialRegion={{
           latitude: 17.3676,
           longitude: 78.5246,
           latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421
+          longitudeDelta: 0.0421,
         }}>
         <Marker
           coordinate={{
             latitude: 17.3676,
-            longitude: 78.5246
+            longitude: 78.5246,
           }}
           title="Origin"
         />
         <Marker
           coordinate={{
             latitude: 17.4374,
-            longitude: 78.4487
+            longitude: 78.4487,
           }}
           title="Destination"
         />
@@ -439,7 +475,6 @@ export const MapScreen = (props: { navigation: { goBack: () => void; navigate: (
           alignSelf: 'center',
           width: '100%',
         }}>
-
         {/* Request Service Modal Content */}
 
         <View
@@ -522,7 +557,7 @@ export const MapScreen = (props: { navigation: { goBack: () => void; navigate: (
           </ScrollView>
 
           <TouchableOpacity onPress={sendCurrentLocation}>
-            <Text style={{ color: "black" }}>Socket update location</Text>
+            <Text style={{color: 'black'}}>Socket update location</Text>
           </TouchableOpacity>
           <Button
             width={'90%'}
@@ -545,7 +580,6 @@ export const MapScreen = (props: { navigation: { goBack: () => void; navigate: (
       </Modal>
     </View>
   );
-
 
   // return (
   //   <View style={styles.container}>
@@ -637,4 +671,3 @@ const detailsData = [
     info: 'Includes dummy info',
   },
 ];
-

@@ -6,17 +6,18 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Image,
 } from 'react-native';
 import normalize from '../../utils/helpers/normalize';
 import constants from '../../utils/helpers/constants';
 import {getData, storeData} from '../../redux/LocalStore';
 import {setLanguage} from '../../redux/reducer/LanguageReducer';
 import {useDispatch} from 'react-redux';
-// import {setStart} from '../../redux/reducer/AuthReducer';
-// import LottieView from 'lottie-react-native';
-// import {Icons} from '../../themes/Icons';
+import {getTokenRequest} from '../../redux/reducer/AuthReducer';
+import LottieView from 'lottie-react-native';
 import {Colors} from '../../themes/Colors';
 import i18n from '../../utils/helpers/i18n.config';
+import {IMAGES} from '../../themes/Themes';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,6 +34,20 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '60%',
     // backgroundColor: 'orange',
+  },
+  logoContainer: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoImage: {
+    position: 'absolute',
+    top: '58%',
+    left: '42%',
+    height: '9%',
+    width: '18%',
   },
   detailsContainer: {
     width: '100%',
@@ -62,24 +77,21 @@ export const LanguageSplash = () => {
     });
   };
 
-
   const continueAction = async () => {
-    console.log('DHSHHSHSS')
-    // storeData(constants.STARTING, '1');
     dispatch(setLanguage(true));
-    // dispatch(setStart('1'));
+    dispatch(getTokenRequest(true));
   };
 
   useEffect(() => {
-    getData(constants.LANGUAGE, value => {
-      if (value === '' || value === undefined || value === null) {
-        storeData(constants.LANGUAGE, 'enUS', () => {
-          i18n.changeLanguage('enUS');
-        });
-      } else {
-        i18n.changeLanguage(value);
-      }
-    });
+    // getData(constants.LANGUAGE, value => {
+    //   if (value === '' || value === undefined || value === null) {
+    //     storeData(constants.LANGUAGE, 'enUS', () => {
+    //       i18n.changeLanguage('enUS');
+    //     });
+    //   } else {
+    //     i18n.changeLanguage(value);
+    //   }
+    // });
   }, []);
 
   return (
@@ -87,11 +99,10 @@ export const LanguageSplash = () => {
       <SafeAreaView>
         <View style={styles.subContainer}>
           <View style={styles.imageContainer}>
-            {/* <LottieView
-              source={Icons.Language_Prefer}
-              style={{height: '100%', width: '100%'}}
-              autoPlay={true}
-            /> */}
+            <LottieView source={IMAGES.Language_Prefer} autoPlay={true} />
+            <View style={styles.logoContainer}>
+              <Image source={IMAGES.logo} style={styles.logoImage} />
+            </View>
           </View>
           <View style={styles.detailsContainer}>
             <View

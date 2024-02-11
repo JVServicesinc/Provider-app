@@ -27,9 +27,14 @@ const AuthSlice = createSlice({
   name: 'Auth',
   initialState,
   reducers: {
+    /* Token */
+    setUserToken(state, action) {
+      state.token = action.payload;
+      state.status = action.type;
+    },
+
     //getToken
     getTokenRequest(state, action) {
-      state.isLoading = true;
       state.status = action.type;
     },
     getTokenSuccess(state, action) {
@@ -250,6 +255,8 @@ const AuthSlice = createSlice({
 });
 
 export const {
+  setUserToken,
+
   signUpRequest,
   signUpSuccess,
   signUpFailure,

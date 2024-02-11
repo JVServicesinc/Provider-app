@@ -1,4 +1,4 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import {call, put, select, takeLatest} from 'redux-saga/effects';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   AdharDetailsFailure,
@@ -37,12 +37,12 @@ import {
   ForgotOtpVerifyFailure,
 } from '../reducer/AuthReducer';
 
-import { getApi, postApi } from '../../utils/helpers/ApiRequest';
+import {getApi, postApi} from '../../utils/helpers/ApiRequest';
 import showErrorAlert from '../../utils/helpers/Toast';
 import constants from '../../utils/helpers/constants';
-import { navigate } from '../../utils/RootNavigation';
-import { getFcmToken } from '../../utils/Notification';
-
+import {navigate} from '../../utils/RootNavigation';
+import {getFcmToken} from '../../utils/Notification';
+import {storeData} from '../LocalStore';
 
 let getItem = state => state.AuthReducer;
 
@@ -185,10 +185,11 @@ export function* signinSaga(action) {
   };
   try {
     let response = yield call(postApi, 'auth/login', action.payload, header);
+    console.log('Sign In Response --- ', response);
     if (response.status == '200') {
       yield put(signinSuccess(response.data));
       yield put(setTokenSuccess(response?.data?.data?.access_token));
-      
+
       const Header2 = {
         Accept: 'application/json',
         contenttype: 'application/json',
@@ -204,37 +205,45 @@ export function* signinSaga(action) {
 
       const token = yield call(getFcmToken);
 
-      yield call(postApi, 'user/device-token', {
-        device_token:  token
-      }, Header3);
+      yield call(
+        postApi,
+        'user/device-token',
+        {
+          device_token: token,
+        },
+        Header3,
+      );
 
       if (response1.status == '200') {
         if (response1?.data?.data?.onboarding_step_status == 'completed') {
           yield call(
-            AsyncStorage.setItem,
-            constants.TOKEN,
-            response?.data?.data?.access_token,
+            storeData(constants.TOKEN, response?.data?.data?.access_token),
+            // AsyncStorage.setItem,
+            // constants.TOKEN,
+            // response?.data?.data?.access_token,
           );
           yield put(getTokenSuccess(response?.data?.data?.access_token));
           showErrorAlert(response?.data?.message);
         } else {
           response1?.data?.data?.onboarding_step_status ==
-            'basic_registration_complete'
+          'basic_registration_complete'
             ? navigate('SignUp2')
             : response1?.data?.data?.onboarding_step_status == 'bank_complete'
-              ? navigate('SignUp3')
-              : response1?.data?.data?.onboarding_step_status == 'aadhar_complete'
-                ? navigate('PanDetail')
-                : response1?.data?.data?.onboarding_step_status == 'pan_complete'
-                  ? navigate('SinNumber')
-                  : '';
+            ? navigate('SignUp3')
+            : response1?.data?.data?.onboarding_step_status == 'aadhar_complete'
+            ? navigate('PanDetail')
+            : response1?.data?.data?.onboarding_step_status == 'pan_complete'
+            ? navigate('SinNumber')
+            : '';
         }
       }
     } else {
+      console.log('Sign In Response Else --- ', error);
       yield put(signinFailure(error));
       showErrorAlert(response?.data?.message);
     }
   } catch (error) {
+    console.log('Sign In Response Error--- ', error);
     yield put(signinFailure(error));
     showErrorAlert(error?.response?.data?.message);
   }
@@ -390,11 +399,7 @@ export function* GetAdharDetailsSaga(action) {
     accesstoken: items?.setToken,
   };
   try {
-    let response = yield call(
-      getApi,
-      'onboarding/kyc/aadhar',
-      header,
-    );
+    let response = yield call(getApi, 'onboarding/kyc/aadhar', header);
 
     if (response.status == 200) {
       yield put(GetAdharDetailsSuccess(response.data));
@@ -418,11 +423,7 @@ export function* GetPanDetailsSaga(action) {
     accesstoken: items?.setToken,
   };
   try {
-    let response = yield call(
-      getApi,
-      'onboarding/kyc/pan',
-      header,
-    );
+    let response = yield call(getApi, 'onboarding/kyc/pan', header);
 
     if (response.status == 200) {
       yield put(GetPanDetalsSuccess(response.data));
@@ -445,11 +446,7 @@ export function* GetSinDetailsSaga(action) {
     accesstoken: items?.setToken,
   };
   try {
-    let response = yield call(
-      getApi,
-      'onboarding/kyc/sin',
-      header,
-    );
+    let response = yield call(getApi, 'onboarding/kyc/sin', header);
 
     if (response.status == 200) {
       yield put(GetSinDetailSuccess(response.data));

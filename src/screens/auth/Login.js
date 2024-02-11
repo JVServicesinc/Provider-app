@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   KeyboardAvoidingView,
@@ -11,19 +11,19 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
+} from 'react-native';
 
-import { Fonts, IMAGES } from "../../themes/Themes";
-import normalize from "../../utils/helpers/normalize";
-import NewTextInput from "../../components/NewTextInput";
-import Button from "../../components/Button";
-import showErrorAlert from "../../utils/helpers/Toast";
-import { useDispatch, useSelector } from "react-redux";
-import { signinRequest } from "../../redux/reducer/AuthReducer";
-import connectionrequest from "../../utils/helpers/NetInfo";
-import Loader from "../../utils/helpers/Loader";
-import { Snackbar } from "react-native-paper";
-import i18n, { changeLanguage, t } from "i18next";
+import {Fonts, IMAGES} from '../../themes/Themes';
+import normalize from '../../utils/helpers/normalize';
+import NewTextInput from '../../components/NewTextInput';
+import Button from '../../components/Button';
+import showErrorAlert from '../../utils/helpers/Toast';
+import {useDispatch, useSelector} from 'react-redux';
+import {signinRequest} from '../../redux/reducer/AuthReducer';
+import connectionrequest from '../../utils/helpers/NetInfo';
+import Loader from '../../utils/helpers/Loader';
+import {Snackbar} from 'react-native-paper';
+import i18n, {changeLanguage, t} from 'i18next';
 
 let status;
 let status1;
@@ -31,39 +31,38 @@ let status1;
 function Login(props) {
   const dispatch = useDispatch();
   const AuthReducer = useSelector(state => state.AuthReducer);
-  const [phone, setPhone] = useState("");
-  const [password, setpassword] = useState("");
+  const [phone, setPhone] = useState('');
+  const [password, setpassword] = useState('');
   const [correctphone, setcorrectphone] = useState(false);
   const [correctpassword, setcorrectpassword] = useState(false);
   const [emptyString, setemptyString] = useState(false);
   const [regexmatch, setregexmatch] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState('en');
   const onToggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
   const regex =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+  // useEffect(() => {
 
-  useEffect(() => {
+  //   async function changelange() {
+  //     setTimeout(async () => {
+  //       await i18n.changeLanguage("fr");
+  //     }, 5000);
+  //   }
 
-    async function changelange() {
-      setTimeout(async () => {
-        await i18n.changeLanguage("fr");
-      }, 5000);
-    }
+  //   changelange();
 
-    changelange();
-
-  }, []);
+  // }, []);
 
   const next = () => {
     if (phone.length == 0) {
       setemptyString(true);
     } else if (!regex.test(phone)) {
       setregexmatch(true);
-    } else if (password == "") {
-      showErrorAlert(t("pleaseEnterPassword"));
+    } else if (password == '') {
+      showErrorAlert(t('pleaseEnterPassword'));
       setregexmatch(false);
       setemptyString(false);
     } else {
@@ -77,14 +76,14 @@ function Login(props) {
           );
         })
         .catch(err => {
-          showErrorAlert(t("connectToInternet"));
+          showErrorAlert(t('connectToInternet'));
         });
     }
   };
   const handleTextChange = newText => {
     setPhone(newText);
 
-    if (newText !== "") {
+    if (newText !== '') {
       setemptyString(false);
     }
   };
@@ -99,26 +98,23 @@ function Login(props) {
   //   }
   // }
 
-
   return (
     <>
-      <Loader visible={AuthReducer.status == "Auth/signinRequest"} />
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#F7F7F7" }}>
-
+      <Loader visible={AuthReducer.status == 'Auth/signinRequest'} />
+      <SafeAreaView style={{flex: 1, backgroundColor: '#F7F7F7'}}>
         <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : null}
-          style={{ flex: 1 }}>
+          behavior={Platform.OS === 'ios' ? 'padding' : null}
+          style={{flex: 1}}>
           <StatusBar
-            backgroundColor={"white"}
+            backgroundColor={'white'}
             translucent={true}
-            barStyle={"dark-content"}
+            barStyle={'dark-content'}
           />
           <ScrollView
-            contentContainerStyle={{ flexGrow: 1 }}
+            contentContainerStyle={{flexGrow: 1}}
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
-            style={{ flex: 1 }}>
-
+            style={{flex: 1}}>
             <View style={style.logoView}>
               <Image source={IMAGES.logo} style={style.logoStyle} />
             </View>
@@ -128,39 +124,37 @@ function Login(props) {
               </TouchableOpacity> */}
               <Text
                 style={{
-                  color: "black",
+                  color: 'black',
                   fontFamily: Fonts.PoppinsSemiBold,
                   fontSize: normalize(22),
                   marginLeft: normalize(25),
                   marginTop: normalize(20),
                 }}>
-                {t("welcomeBack")}{" "}
+                {t('welcomeBack')}{' '}
               </Text>
-              <Text style={style.welcome}>
-                {t("welcomeBackEnterDetails")}
-              </Text>
-              <Text style={style.email}>{t("emailBold")}</Text>
+              <Text style={style.welcome}>{t('welcomeBackEnterDetails')}</Text>
+              <Text style={style.email}>{t('emailBold')}</Text>
               <NewTextInput
-                width={"85%"}
-                textwidth={"100%"}
+                width={'85%'}
+                textwidth={'100%'}
                 borderRadius={normalize(5)}
                 value={phone}
                 onChange={handleTextChange}
                 // backgroundColor={COLORS.backgroundPink}
                 marginTop={normalize(2)}
-                name={t("enterEmail")}
-                keyboardType={"email-address"}
-                placeholderTextColor={"#79747E"}
+                name={t('enterEmail')}
+                keyboardType={'email-address'}
+                placeholderTextColor={'#79747E'}
                 textmarleft={normalize(12)}
                 textInputHight={normalize(40)}
                 borderColor={
                   emptyString
-                    ? "red"
+                    ? 'red'
                     : regexmatch
-                      ? "red"
-                      : correctphone
-                        ? "red"
-                        : "#253274"
+                    ? 'red'
+                    : correctphone
+                    ? 'red'
+                    : '#253274'
                 }
                 borderWidth={normalize(1)}
                 fontFamily={Fonts.PoppinsMedium}
@@ -168,49 +162,49 @@ function Login(props) {
               {emptyString ? (
                 <View
                   style={{
-                    flexDirection: "row",
+                    flexDirection: 'row',
                     marginLeft: normalize(30),
                     marginTop: normalize(5),
-                    alignItems: "center",
+                    alignItems: 'center',
                   }}>
                   <Image
                     source={IMAGES.incorrect}
-                    style={{ height: normalize(15), width: normalize(15) }}
+                    style={{height: normalize(15), width: normalize(15)}}
                   />
 
                   <Text
                     style={{
-                      color: "#CD4545",
+                      color: '#CD4545',
                       fontSize: normalize(12),
                       fontFamily: Fonts.PoppinsRegular,
                       marginLeft: normalize(2),
                     }}>
-                    {t("enterEmail")}
+                    {t('enterEmail')}
                   </Text>
                 </View>
               ) : regexmatch ? (
                 <View
                   style={{
-                    flexDirection: "row",
+                    flexDirection: 'row',
                     marginLeft: normalize(30),
                     marginTop: normalize(5),
-                    alignItems: "center",
+                    alignItems: 'center',
                   }}>
                   <Image
                     source={IMAGES.incorrect}
-                    style={{ height: normalize(15), width: normalize(15) }}
+                    style={{height: normalize(15), width: normalize(15)}}
                   />
 
-                  <Text style={style.Invalidemail}>{t("invalidEmail")}</Text>
+                  <Text style={style.Invalidemail}>{t('invalidEmail')}</Text>
                 </View>
               ) : null}
 
-              <Text style={[style.email, { marginTop: normalize(10) }]}>
-                {t("passwordBold")}
+              <Text style={[style.email, {marginTop: normalize(10)}]}>
+                {t('passwordBold')}
               </Text>
               <NewTextInput
-                width={"85%"}
-                borderColor={correctpassword ? "red" : "#253274"}
+                width={'85%'}
+                borderColor={correctpassword ? 'red' : '#253274'}
                 borderWidth={normalize(1)}
                 borderRadius={normalize(5)}
                 value={password}
@@ -220,44 +214,44 @@ function Login(props) {
                 addisSucureBtn={true}
                 textInputHight={normalize(40)}
                 marginTop={normalize(2)}
-                name={t("enterPassword")}
+                name={t('enterPassword')}
                 textmarleft={normalize(10)}
                 fontFamily={Fonts.PoppinsMedium}
                 textwidth={normalize(200)}
-                placeholderTextColor={"#79747E"}
+                placeholderTextColor={'#79747E'}
               />
               {correctpassword ? (
                 <View style={style.InView}>
                   <Image
                     source={IMAGES.incorrect}
-                    style={{ height: normalize(15), width: normalize(15) }}
+                    style={{height: normalize(15), width: normalize(15)}}
                   />
 
                   <Text style={style.passwordIncorrect}>
-                    {t("passwordIncorrect")}
+                    {t('passwordIncorrect')}
                   </Text>
                 </View>
               ) : null}
               <Text
                 style={style.forgotText}
                 onPress={() => {
-                  props.navigation.navigate("ForgotPassword");
+                  props.navigation.navigate('ForgotPassword');
                 }}>
-                {t("forgotPassword")}
+                {t('forgotPassword')}
               </Text>
               <Button
-                alignSelf={"center"}
+                alignSelf={'center'}
                 marginTop={normalize(20)}
-                backgroundColor={"black"}
+                backgroundColor={'black'}
                 height={normalize(45)}
-                width={"80%"}
+                width={'80%'}
                 borderRadius={normalize(5)}
-                textColor={"white"}
+                textColor={'white'}
                 fontSize={normalize(15)}
-                title={t("login")}
+                title={t('login')}
                 titlesingle={true}
                 fontFamily={
-                  Platform.OS == "ios"
+                  Platform.OS == 'ios'
                     ? Fonts.PoppinsSemiBold
                     : Fonts.PoppinsSemiBold
                 }
@@ -267,13 +261,13 @@ function Login(props) {
               />
 
               <Text style={style.createAcc}>
-                {t("createAnAccount")}{" "}
+                {t('createAnAccount')}{' '}
                 <Text
                   style={style.SignUp}
                   onPress={() => {
-                    props.navigation.navigate("SignUp");
+                    props.navigation.navigate('SignUp');
                   }}>
-                  {t("signUp")}
+                  {t('signUp')}
                 </Text>
               </Text>
             </View>
@@ -281,9 +275,8 @@ function Login(props) {
               visible={visible}
               onDismiss={onDismissSnackBar}
               action={{
-                label: "Undo",
-                onPress: () => {
-                },
+                label: 'Undo',
+                onPress: () => {},
               }}>
               {AuthReducer?.signinResponse?.response?.data?.errors?.[0]}
             </Snackbar>
@@ -299,41 +292,41 @@ const style = StyleSheet.create({
   email: {
     fontFamily: Fonts.PoppinsRegular,
     fontSize: normalize(11),
-    color: "#7C84AC",
+    color: '#7C84AC',
     marginLeft: normalize(25),
     marginTop: normalize(35),
   },
   Invalidemail: {
-    color: "#CD4545",
+    color: '#CD4545',
     fontSize: normalize(12),
     fontFamily: Fonts.PoppinsRegular,
     marginLeft: normalize(2),
   },
   logoView: {
-    backgroundColor: "#F7F7F7",
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#F7F7F7',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: normalize(50),
   },
   welcome: {
     fontFamily: Fonts.PoppinsRegular,
     fontSize: normalize(11),
-    color: "#7C84AC",
+    color: '#7C84AC',
     marginLeft: normalize(25),
     marginTop: normalize(5),
   },
   forgotText: {
     fontFamily: Fonts.PoppinsRegular,
     fontSize: normalize(13),
-    color: "#253274",
+    color: '#253274',
     marginLeft: normalize(25),
     marginTop: normalize(10),
-    textAlign: "right",
+    textAlign: 'right',
     marginRight: normalize(32),
   },
   passwordIncorrect: {
-    color: "#CD4545",
+    color: '#CD4545',
     fontSize: normalize(12),
     fontFamily: Fonts.PoppinsRegular,
     marginLeft: normalize(2),
@@ -341,34 +334,34 @@ const style = StyleSheet.create({
   logoStyle: {
     width: normalize(200),
     height: normalize(200),
-    resizeMode: "contain",
-    backgroundColor: "#F7F7F7",
+    resizeMode: 'contain',
+    backgroundColor: '#F7F7F7',
   },
   createAcc: {
     fontFamily: Fonts.PoppinsRegular,
     fontSize: normalize(11),
-    color: "#7C84AC",
+    color: '#7C84AC',
     marginLeft: normalize(25),
     marginTop: normalize(20),
-    textAlign: "center",
+    textAlign: 'center',
   },
   SignUp: {
     fontFamily: Fonts.PoppinsRegular,
     fontSize: normalize(11),
-    color: "#000000",
+    color: '#000000',
     marginTop: normalize(20),
-    textDecorationLine: "underline",
+    textDecorationLine: 'underline',
   },
   InView: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginLeft: normalize(30),
     marginTop: normalize(5),
-    alignItems: "center",
+    alignItems: 'center',
   },
   PasswordText: {
     fontFamily: Fonts.PoppinsRegular,
     fontSize: normalize(11),
-    color: "#7C84AC",
+    color: '#7C84AC',
     marginLeft: normalize(25),
     marginTop: normalize(10),
   },
