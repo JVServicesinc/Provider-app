@@ -24,7 +24,7 @@ function Dashboard(props) {
     {
       id: 2,
       topic: 'total earnings',
-      number: '₹5.1',
+      number: '$5.1',
       image1: IMAGES.earnings,
     },
     {

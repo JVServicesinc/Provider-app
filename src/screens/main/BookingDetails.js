@@ -175,7 +175,7 @@ function BookingDetails(props) {
               <View
                 style={[style.BillingViewDesign, { marginTop: normalize(5) }]}>
                 <Text style={style.BillingText}>Convinience Fee</Text>
-                <Text style={style.BillingText}>₹50</Text>
+                <Text style={style.BillingText}>$50</Text>
               </View>
               <View
                 style={[style.BillingViewDesign, { marginTop: normalize(20) }]}>

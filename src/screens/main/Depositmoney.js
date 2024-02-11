@@ -19,11 +19,11 @@
 //   const walletblns = [
 //     {
 //       id: 1,
-//       blns: '+ ₹100',
+//       blns: '+ $100',
 //     },
 //     {
 //       id: 2,
-//       blns: '+ ₹200',
+//       blns: '+ $200',
 //     },
 //   ];
 //   const walletrender = ({item}) => {
@@ -90,7 +90,7 @@
 //               onChangeText={text => {
 //                 setamount(text);
 //               }}
-//               placeholder="₹0"
+//               placeholder="$0"
 //               placeholderTextColor={'#ABABAB'}
 //               style={{
 //                 color: 'black',
@@ -107,7 +107,7 @@
 //                 marginTop: normalize(5),
 //               }}>
 //               Current Balance{' '}
-//               <Text style={{fontFamily: Fonts.PoppinsBold}}>₹3600</Text>
+//               <Text style={{fontFamily: Fonts.PoppinsBold}}>$3600</Text>
 //             </Text>
 //           </View>
 //         </KeyboardAvoidingView>
@@ -163,23 +163,23 @@ function Depositmoney(props) {
   const walletblns = [
     {
       id: 1,
-      blns: '+ ₹100',
+      blns: '+ $100',
     },
     {
       id: 2,
-      blns: '+ ₹200',
+      blns: '+ $200',
     },
     {
       id: 2,
-      blns: '+ ₹200',
+      blns: '+ $200',
     },
     {
       id: 2,
-      blns: '+ ₹200',
+      blns: '+ $200',
     },
     {
       id: 2,
-      blns: '+ ₹200',
+      blns: '+ $200',
     },
   ];
 
@@ -256,7 +256,7 @@ function Depositmoney(props) {
                 // amountValue ? setamountValue(text) :
                  setAmount(text);
               }}
-              placeholder="₹0"
+              placeholder="$0"
               placeholderTextColor={'#ABABAB'}
               style={{
                 color: 'black',
@@ -278,7 +278,7 @@ function Depositmoney(props) {
                 marginTop: normalize(5),
               }}>
               Current Balance{' '}
-              <Text style={{fontFamily: Fonts.PoppinsBold}}>₹3600</Text>
+              <Text style={{fontFamily: Fonts.PoppinsBold}}>$3600</Text>
             </Text>
           </View> */}
           <View
@@ -295,7 +295,7 @@ function Depositmoney(props) {
               onChangeText={text => {
                 setAmount(text);
               }}
-              placeholder="₹0"
+              placeholder="$0"
               placeholderTextColor={'#ABABAB'}
               multiline={true}
               style={{
@@ -320,7 +320,7 @@ function Depositmoney(props) {
                 marginTop: normalize(5),
               }}>
               Current Balance{' '}
-              <Text style={{fontFamily: Fonts.PoppinsBold}}>₹3600</Text>
+              <Text style={{fontFamily: Fonts.PoppinsBold}}>$3600</Text>
             </Text>
           </View>
         </KeyboardAvoidingView>

@@ -53,6 +53,7 @@ function Home(props) {
   }, []);
 
   useEffect(() => {
+    console.log('profile reducer---->',ProfileReducer)
     if (currentIndex >= 0 && currentIndex < ImageIndex.length - 1) {
       onGoingRef.current = setTimeout(() => {
         setcurrentIndex(prevIndex =>
@@ -671,7 +672,7 @@ function Home(props) {
                           marginLeft: normalize(5),
                           marginTop: normalize(4),
                         }}>
-                        ₹499
+                        $499
                       </Text>
                     </View>
                   </>

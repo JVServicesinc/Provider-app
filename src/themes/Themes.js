@@ -99,6 +99,10 @@ export const IMAGES = {
   emoji: require('../assets/images/party2.gif'),
   Cup: require('../assets/images/cup.png'),
   Bag: require('../assets/images/bag.png'),
+  img1:require('../assets/images/img1.png'),
+  img2:require('../assets/images/img2.png'),
+  img3:require('../assets/images/img3.png'),
+  img4:require('../assets/images/img4.png'),
 };
 export const Fonts = {
   PoppinsBold: 'Poppins-Bold',

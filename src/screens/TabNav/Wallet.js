@@ -76,7 +76,7 @@ function Wallet(props) {
       date: '05 FEB 2022',
       image: IMAGES.demoprofile,
       name: 'Recieved for Facial service',
-      price: '+ ₹499',
+      price: '+ $499',
       time: '11:58 am',
     },
     {
@@ -84,7 +84,7 @@ function Wallet(props) {
       date: '05 FEB 2022',
       image: IMAGES.demoprofile,
       name: 'Money added to the wallet',
-      price: '+ ₹1000',
+      price: '+ $1000',
       time: '09:43pm',
     },
   ];
@@ -181,16 +181,17 @@ function Wallet(props) {
                     fontSize: normalize(25),
                     fontFamily: Fonts.PoppinsMedium,
                   }}>
-                  ₹5,080
+                  $5,080
                 </Text>
               </View>
 
               <View style={{flexDirection: 'row', width: '100%'}}>
                 <TouchableOpacity
                   style={{
-                    width: '50%',
+                    width: '100%',
                     backgroundColor: '#686868',
                     borderBottomLeftRadius: normalize(15),
+                    borderBottomRightRadius: normalize(15),
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}
@@ -212,6 +213,7 @@ function Wallet(props) {
                     width: '50%',
                     backgroundColor: '#CFCFCF',
                     padding: normalize(15),
+                    opacity:0,
                     borderBottomRightRadius: normalize(15),
                     justifyContent: 'center',
                     alignItems: 'center',

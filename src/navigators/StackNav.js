@@ -39,30 +39,34 @@ import ChangePassword from '../screens/auth/ChangePassword';
 import RateCard from '../screens/main/RateCard';
 import Language from '../screens/main/Language';
 import Slots from '../screens/main/Slots';
-import LanguageSplash from '../screens/splashScreen/LanguageSplash';
+import {LanguageSplash} from '../screens/splashScreen/LanguageSplash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MapScreen} from '../screens/main/map';
+import OnBoarding from '../screens/auth/Onboarding';
 
 const Stack = createStackNavigator();
 
 export default function StackNav() {
   const AuthReducer = useSelector(state => state.AuthReducer);
-  const [language, setLanguage] = useState(null);
+  const LanguageReducer = useSelector(state => state.LanguageReducer);
+  // const [language, setLanguage] = useState(null);
 
-  useEffect(() => {
-    AsyncStorage.getItem('language').then(res => {
-      console.log(res);
-      if (res != null) {
-        setLanguage(res);
-      } else {
-        setLanguage(null);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   console.log('sdvsvd',AuthReducer)
+  //   AsyncStorage.getItem('language').then(res => {
+  //     console.log(res);
+  //     if (res != null) {
+  //       setLanguage(res);
+  //     } else {
+  //       setLanguage(null);
+  //     }
+  //   });
+  // }, []);
 
   const Screens =
     AuthReducer?.token == null
       ? {
+          Onboarding:OnBoarding,
           Login: Login,
           SignUp: SignUp,
           Verification: Verification,
@@ -101,16 +105,16 @@ export default function StackNav() {
           MapScreen: MapScreen,
         };
   if (AuthReducer?.isLoading) {
-    return <Splash />;
+    // return <Splash />;
     // return <LanguageSplash />;
     // return <LanguageSplash />;
-    //
-    // if (language == null) {
-    //   return <LanguageSplash />;
-    // } else {
-    //   // pibkc the language async - i18n change language()
-    //   return <Splash />;
-    // }
+    console.log('languae',LanguageReducer.isLanguageSelected)
+    if (LanguageReducer.isLanguageSelected == null) {
+      return <LanguageSplash />;
+    } else {
+      // pibkc the language async - i18n change language()
+      return <Login />;
+    }
   } else {
     return (
       <NavigationContainer ref={navigationRef}>
@@ -118,7 +122,7 @@ export default function StackNav() {
           {Object.entries({
             ...Screens,
           }).map(([name, component]) => {
-            return <Stack.Screen name={name} component={component} />;
+            return <Stack.Screen key={name} name={name}  component={component} />;
           })}
         </Stack.Navigator>
       </NavigationContainer>

@@ -23,6 +23,7 @@ function Refer_Earn(props) {
       profilename: 'User',
       description: 'profile can explore & book services in a min',
       nextArrow: IMAGES.nextArrow,
+      show:true
     },
     {
       id: 1,
@@ -30,6 +31,7 @@ function Refer_Earn(props) {
       profilename: 'Freelancer',
       description: 'profile can explore & book services in a min',
       nextArrow: IMAGES.nextArrow,
+      show:false
     },
     {
       id: 1,
@@ -37,6 +39,7 @@ function Refer_Earn(props) {
       profilename: 'Service Provider',
       description: 'profile can explore & book services in a min',
       nextArrow: IMAGES.nextArrow,
+      show:true
     },
     {
       id: 1,
@@ -44,11 +47,13 @@ function Refer_Earn(props) {
       profilename: 'Partner',
       description: 'profile can explore & book services in a min',
       nextArrow: IMAGES.nextArrow,
+      show:false
     },
   ];
   const renderData = ({item}) => {
     return (
-      <TouchableOpacity
+      <>
+{item.show&&<TouchableOpacity
         style={{
           flexDirection: 'row',
           borderWidth: normalize(2),
@@ -100,7 +105,9 @@ function Refer_Earn(props) {
             // marginRight:normalize(10)
           }}
         />
-      </TouchableOpacity>
+      </TouchableOpacity>}
+      </>
+      
     );
   };
 
@@ -121,7 +128,7 @@ function Refer_Earn(props) {
       id: 2,
       imagename: IMAGES.price,
       description:
-        'For every successful signup, you can win upto ₹500, and minimum ₹100',
+        'For every successful signup, you can win upto $500, and minimum $100',
     },
   ];
 
@@ -219,7 +226,7 @@ function Refer_Earn(props) {
                 fontFamily: Fonts.PoppinsMedium,
                 marginTop: normalize(15),
               }}>
-              Refer now & earn up to ₹500
+              Refer now & earn up to $500
             </Text>
             <Text
               style={{
@@ -229,8 +236,8 @@ function Refer_Earn(props) {
                 textAlign: 'center',
                 width: normalize(290),
               }}>
-              Invite your friends to Seek Me service. They get instant ₹100 off.
-              You win upto ₹500 in rewards
+              Invite your friends to Seek Me service. They get instant $100 off.
+              You win upto $500 in rewards
             </Text>
           </View>
         </View>

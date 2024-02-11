@@ -72,59 +72,70 @@ export default function DrawerMenu(props) {
       id: 0,
       icon: IMAGES.subscription,
       name: 'Subscription',
+      show:false
     },
     {
       id: 1,
       icon: IMAGES.ratecard,
       name: 'Rate Card',
+      show:true
     },
     {
       id: 2,
       icon: IMAGES.bank,
       name: 'Bank Details',
+      show:true
     },
 
     {
       id: 3,
       icon: IMAGES.rafer,
       name: 'Refer & Earn',
+      show:true
     },
     {
       id: 4,
       icon: IMAGES.rate,
       name: 'Rate us',
+      show:true
     },
     {
       id: 5,
       icon: IMAGES.aboutus,
       name: 'About JEveux',
+      show:true
     },
     {
       id: 6,
       icon: IMAGES.subscription,
       name: 'Language',
+      show:true
     },
     {
       id: 7,
 
       icon: IMAGES.logout,
       name: 'Logout',
+      show:true
     },
     {
       id: 8,
       icon: IMAGES.Notification22,
       name: 'NotificationAlert',
+      show:true
+
     },
     {
       id: 9,
       icon: IMAGES.subscription,
       name: 'Slots',
+      show:true
     },
   ];
   function menuRender({ item, index }) {
     return (
       <>
-        <TouchableOpacity
+    {item.show&&<TouchableOpacity
           onPress={() => {
             index == 0 && navigation.navigate('Subscription'),
               onBackdropPress(),
@@ -170,7 +181,7 @@ export default function DrawerMenu(props) {
             }}>
             {item?.name}
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity>}
       </>
     );
   }

@@ -111,7 +111,7 @@ function Subscription(props) {
                 fontFamily: Fonts.PoppinsRegular,
                 fontSize: normalize(10),
               }}>
-              ₹
+              $
             </Text>
             {item?.price}
             <Text

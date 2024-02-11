@@ -427,7 +427,7 @@ const RateCard = props => {
                 </View>
                 <View style={styles.grayback}>
                   <Text style={styles.txtsmb}>
-                    + ₹5.25 <Text style={styles.txtgray}>per km</Text>
+                    + $5.25 <Text style={styles.txtgray}>per km</Text>
                   </Text>
                 </View>
               </View>
@@ -436,12 +436,12 @@ const RateCard = props => {
 
               <View style={styles.faj}>
                 <Text style={styles.txtgray}>Incentive distance pay</Text>
-                <Text style={styles.txtgray}>₹0.35 per km</Text>
+                <Text style={styles.txtgray}>$0.35 per km</Text>
               </View>
 
               <View style={styles.faj}>
                 <Text style={styles.txtgray}>Base distance pay</Text>
-                <Text style={styles.txtgray}>₹5 per km</Text>
+                <Text style={styles.txtgray}>$5 per km</Text>
               </View>
 
               <View style={styles.dashline} />
@@ -453,7 +453,7 @@ const RateCard = props => {
                 </View>
                 <View style={styles.grayback}>
                   <Text style={styles.txtsmb}>
-                    + ₹15 <Text style={styles.txtgray}>per km</Text>
+                    + $15 <Text style={styles.txtgray}>per km</Text>
                   </Text>
                 </View>
               </View>
@@ -487,7 +487,7 @@ const RateCard = props => {
                 </View>
                 <View style={styles.grayback}>
                   <Text style={styles.txtgray}>
-                    up to <Text style={styles.txtsmb}>+ ₹300</Text>
+                    up to <Text style={styles.txtsmb}>+ $300</Text>
                   </Text>
                 </View>
               </View>
@@ -501,10 +501,10 @@ const RateCard = props => {
                   }}>
                   Target Pay
                 </Text>
-                <Text style={styles.txtgray}>₹160 </Text>
-                <Text style={styles.txtgray}>₹160 </Text>
-                <Text style={styles.txtgray}>₹160 </Text>
-                <Text style={styles.txtgray}>₹160 </Text>
+                <Text style={styles.txtgray}>$160 </Text>
+                <Text style={styles.txtgray}>$160 </Text>
+                <Text style={styles.txtgray}>$160 </Text>
+                <Text style={styles.txtgray}>$160 </Text>
               </View>
 
               <View
@@ -535,10 +535,10 @@ const RateCard = props => {
                   }}>
                   Order Pay
                 </Text>
-                <Text style={styles.txtgray}>₹165*</Text>
-                <Text style={styles.txtgray}>₹165*</Text>
-                <Text style={styles.txtgray}>₹165*</Text>
-                <Text style={styles.txtgray}>₹165*</Text>
+                <Text style={styles.txtgray}>$165*</Text>
+                <Text style={styles.txtgray}>$165*</Text>
+                <Text style={styles.txtgray}>$165*</Text>
+                <Text style={styles.txtgray}>$165*</Text>
               </View>
             </View>
           </View>

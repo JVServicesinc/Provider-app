@@ -89,15 +89,15 @@ function Login(props) {
     }
   };
 
-  async function changeLanguageMode() {
-    if (language === "fr") {
-      setLanguage("en");
-      await i18n.changeLanguage("en");
-    } else {
-      setLanguage("fr");
-      await i18n.changeLanguage("fr");
-    }
-  }
+  // async function changeLanguageMode() {
+  //   if (language === "fr") {
+  //     setLanguage("en");
+  //     await i18n.changeLanguage("en");
+  //   } else {
+  //     setLanguage("fr");
+  //     await i18n.changeLanguage("fr");
+  //   }
+  // }
 
 
   return (
@@ -123,9 +123,9 @@ function Login(props) {
               <Image source={IMAGES.logo} style={style.logoStyle} />
             </View>
             <View>
-              <TouchableOpacity onPress={changeLanguageMode}>
+              {/* <TouchableOpacity onPress={changeLanguageMode}>
                 <Text style={{ color: "black" }}>Change language mode</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               <Text
                 style={{
                   color: "black",

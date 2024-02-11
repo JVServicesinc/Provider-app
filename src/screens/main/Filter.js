@@ -254,7 +254,7 @@ function Filter(props) {
                   marginTop: normalize(10),
                   marginLeft: normalize(20),
                 }}>
-                ₹499 - ₹9999
+                $499 - $9999
               </Text>
               <Image
                 source={IMAGES.Progress}
