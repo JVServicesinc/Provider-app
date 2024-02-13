@@ -68,6 +68,7 @@ function Login(props) {
     } else {
       connectionrequest()
         .then(() => {
+          console.log('Hello----->',phone,password)
           dispatch(
             signinRequest({
               username: phone,

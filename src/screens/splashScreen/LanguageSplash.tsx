@@ -1,5 +1,5 @@
 import {changeLanguage} from 'i18next';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
 
 export const LanguageSplash = () => {
   const dispatch = useDispatch();
-
+  const selectedLanguageReference=useRef<string>('enUS')
   const [selectedLanguage, setSelectedLanguage] = useState<{
     english: boolean;
     french: boolean;
@@ -72,12 +72,14 @@ export const LanguageSplash = () => {
       english: language === 'enUS',
       french: language === 'frCA',
     });
-    storeData(constants.LANGUAGE, language, () => {
-      i18n.changeLanguage(language);
-    });
+    selectedLanguageReference.current=language
+    i18n.changeLanguage(selectedLanguageReference.current);
   };
 
   const continueAction = async () => {
+    storeData(constants.LANGUAGE, selectedLanguageReference.current, () => {
+      i18n.changeLanguage(selectedLanguageReference.current);
+    });
     dispatch(setLanguage(true));
     dispatch(getTokenRequest(true));
   };

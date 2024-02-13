@@ -12,6 +12,7 @@ import {getTokenRequest} from '../../redux/reducer/AuthReducer';
 import {getData} from '../../redux/LocalStore';
 import constants from '../../utils/helpers/constants';
 import {setOnBoard} from '../../redux/reducer/SplashReducer';
+import i18n from '../../utils/helpers/i18n.config';
 import {setLanguage} from '../../redux/reducer/LanguageReducer';
 import {setUserToken} from '../../redux/reducer/AuthReducer';
 
@@ -26,22 +27,28 @@ export default function Splash(props) {
   function getInfo() {
     getData(constants.ONBOARDED, res => {
       if (res !== '') {
-        dispatch(setOnBoard('1'));
+        // dispatch(setOnBoard('1'));
         getData(constants.LANGUAGE, res1 => {
+          console.log("result 1",res1)
           if (res1 !== '') {
-            dispatch(setLanguage(true));
-          } else {
+            console.log("result 2",res1)
+            
+            // dispatch(setLanguage(true));
             getData(constants.TOKEN, value => {
-              dispatch(setUserToken(value));
-              //   dispatch(setStart('1'));
-              //   dispatch(
-              //     setLanguage(
-              //       value === '' || value === null || value === undefined
-              //         ? null
-              //         : null,
-              //     ),
-              //   );
+              if(value!==''){
+                dispatch(setOnBoard('1'));
+                dispatch(setLanguage(true));
+                dispatch(setUserToken(value));
+              }else{
+                dispatch(setOnBoard('1'));
+                dispatch(setLanguage(true));
+                dispatch(setUserToken(null));
+              }
             });
+          } else  {
+            dispatch(setOnBoard('1'));
+            dispatch(setLanguage(false));
+            
           }
         });
       } else {
@@ -52,7 +59,8 @@ export default function Splash(props) {
 
   useEffect(() => {
     getData(constants.LANGUAGE, value => {
-      value !== '' && i18n.changeLanguage(value);
+      console.log('UseEffect--->',value)
+      value !== '' && i18n.changeLanguage(value,(data,t)=>{console.log('data---',data,t)});
     });
     const timeout = setTimeout(() => {
       clearTimeout(timeout);

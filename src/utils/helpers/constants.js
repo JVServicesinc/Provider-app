@@ -1,6 +1,6 @@
 export default {
   // BASE_URL: 'https://jvservices.ca/jv/api/api',
-  BASE_URL: 'https://jvapis.ez-xpert.ca/', //'https://jvapis.ez-xpert.ca/', //'https://api.jvservices.ca/api',
+  BASE_URL: 'https://jvapis.ez-xpert.ca/api', //'https://jvapis.ez-xpert.ca/', //'https://api.jvservices.ca/api',
   TOKEN: 'TOKEN',
   STREAM_API_KEY: '5cs3bhjx99vh',
   STREAM_SECRET:

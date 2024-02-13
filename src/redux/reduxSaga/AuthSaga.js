@@ -184,7 +184,9 @@ export function* signinSaga(action) {
     contenttype: 'application/json',
   };
   try {
+    console.log('efwffwfw',action)
     let response = yield call(postApi, 'auth/login', action.payload, header);
+    console.log('efwffwfw',response)
     console.log('Sign In Response --- ', response);
     if (response.status == '200') {
       yield put(signinSuccess(response.data));
@@ -196,13 +198,13 @@ export function* signinSaga(action) {
         accesstoken: response?.data?.data?.access_token,
       };
       let response1 = yield call(getApi, 'user/profile', Header2);
+      console.log('Header2',response1)
 
       const Header3 = {
         Accept: 'application/json',
         contenttype: 'application/json',
         accesstoken: response?.data?.data?.access_token,
       };
-
       const token = yield call(getFcmToken);
 
       yield call(
@@ -213,15 +215,16 @@ export function* signinSaga(action) {
         },
         Header3,
       );
+      console.log('Header3',response1.status)
 
       if (response1.status == '200') {
         if (response1?.data?.data?.onboarding_step_status == 'completed') {
-          yield call(
-            storeData(constants.TOKEN, response?.data?.data?.access_token),
-            // AsyncStorage.setItem,
-            // constants.TOKEN,
-            // response?.data?.data?.access_token,
-          );
+          storeData(constants.TOKEN, response?.data?.data?.access_token),
+          // yield call(
+          //   AsyncStorage.setItem,
+          //   constants.TOKEN,
+          //   response?.data?.data?.access_token,
+          // );
           yield put(getTokenSuccess(response?.data?.data?.access_token));
           showErrorAlert(response?.data?.message);
         } else {
