@@ -104,6 +104,7 @@ Header.propTypes = {
   titleMarginRight: PropTypes.any,
   rHeight: PropTypes.any,
   rWidth: PropTypes.any,
+  title: PropTypes.any,
 };
 Header.defaultProps = {
   onPress_back_button: () => {},
@@ -114,4 +115,3 @@ Header.defaultProps = {
   titleMarginLeft: normalize(0),
   titleMarginRight: 0,
 };
-

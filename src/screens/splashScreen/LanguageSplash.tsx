@@ -16,7 +16,8 @@ import {useDispatch} from 'react-redux';
 import {getTokenRequest} from '../../redux/reducer/AuthReducer';
 import LottieView from 'lottie-react-native';
 import {Colors} from '../../themes/Colors';
-import i18n from '../../utils/helpers/i18n.config';
+import '../../utils/helpers/i18n.config';
+import {useTranslation} from 'react-i18next';
 import {IMAGES} from '../../themes/Themes';
 
 const styles = StyleSheet.create({
@@ -58,7 +59,8 @@ const styles = StyleSheet.create({
 
 export const LanguageSplash = () => {
   const dispatch = useDispatch();
-  const selectedLanguageReference=useRef<string>('enUS')
+  const {i18n} = useTranslation();
+  const selectedLanguageReference = useRef<string>('enUS');
   const [selectedLanguage, setSelectedLanguage] = useState<{
     english: boolean;
     french: boolean;
@@ -72,7 +74,7 @@ export const LanguageSplash = () => {
       english: language === 'enUS',
       french: language === 'frCA',
     });
-    selectedLanguageReference.current=language
+    selectedLanguageReference.current = language;
     i18n.changeLanguage(selectedLanguageReference.current);
   };
 

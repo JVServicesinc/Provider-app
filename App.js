@@ -3,10 +3,6 @@ import StackNav from './src/navigators/StackNav';
 import {LogBox, StatusBar} from 'react-native';
 
 LogBox.ignoreAllLogs();
-import i18n from 'i18next';
-import {initReactI18next} from 'react-i18next';
-import en from './src/assets/language/english.json';
-import fr from './src/assets/language/french.json';
 import {PaperProvider} from 'react-native-paper';
 import {
   getFcmToken,
@@ -16,24 +12,7 @@ import {
 import {useSelector} from 'react-redux';
 import {io} from 'socket.io-client';
 import {navigate} from './src/utils/RootNavigation';
-
-// import {getFcmToken, notificationListener, requestUserPermission} from './src/utils/Notifications';
-
-const resources = {
-  en: {translation: en},
-  fr: {translation: fr},
-};
-
-i18n.use(initReactI18next).init({
-  resources,
-  lng: 'en',
-  fallbackLng: 'en',
-  debug: false,
-  compatibilityJSON: 'v3',
-  interpolation: {
-    escapeValue: false,
-  },
-});
+import 'intl-pluralrules';
 
 const BOOKING_WEBSOCKET_URL = 'https://jv-realtime-booking.onrender.com';
 

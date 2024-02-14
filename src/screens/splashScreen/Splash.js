@@ -12,12 +12,14 @@ import {getTokenRequest} from '../../redux/reducer/AuthReducer';
 import {getData} from '../../redux/LocalStore';
 import constants from '../../utils/helpers/constants';
 import {setOnBoard} from '../../redux/reducer/SplashReducer';
-import i18n from '../../utils/helpers/i18n.config';
+import '../../utils/helpers/i18n.config';
+import {useTranslation} from 'react-i18next';
 import {setLanguage} from '../../redux/reducer/LanguageReducer';
 import {setUserToken} from '../../redux/reducer/AuthReducer';
 
 export default function Splash(props) {
   const dispatch = useDispatch();
+  const {i18n} = useTranslation();
   // useEffect(() => {
   //   setTimeout(() => {
   //     dispatch(getTokenRequest());
@@ -29,23 +31,19 @@ export default function Splash(props) {
       if (res !== '') {
         // dispatch(setOnBoard('1'));
         getData(constants.LANGUAGE, res1 => {
-          console.log("result 1",res1)
           if (res1 !== '') {
-            console.log("result 2",res1)
-            
-            // dispatch(setLanguage(true));
             getData(constants.TOKEN, value => {
-              if(value!==''){
+              if (value !== '') {
                 dispatch(setOnBoard('1'));
                 dispatch(setLanguage(true));
                 dispatch(setUserToken(value));
-              }else{
+              } else {
                 dispatch(setOnBoard('1'));
                 dispatch(setLanguage(true));
                 dispatch(setUserToken(null));
               }
             });
-          } else  {
+          } else {
             dispatch(setOnBoard('1'));
             dispatch(setLanguage(false));
           }
@@ -58,13 +56,13 @@ export default function Splash(props) {
 
   useEffect(() => {
     getData(constants.LANGUAGE, value => {
-      console.log('UseEffect--->',value)
-      value !== '' && i18n.changeLanguage(value,(data,t)=>{console.log('data---',data,t)});
+      console.log('UseEffect--->', value);
+      value !== '' && i18n.changeLanguage(value);
     });
     const timeout = setTimeout(() => {
       clearTimeout(timeout);
       getInfo();
-    }, 1500);
+    }, 500);
   }, []);
 
   return (

@@ -23,12 +23,10 @@ import {signinRequest} from '../../redux/reducer/AuthReducer';
 import connectionrequest from '../../utils/helpers/NetInfo';
 import Loader from '../../utils/helpers/Loader';
 import {Snackbar} from 'react-native-paper';
-import i18n, {changeLanguage, t} from 'i18next';
-
-let status;
-let status1;
+import {useTranslation} from 'react-i18next';
 
 function Login(props) {
+  const {i18n, t} = useTranslation();
   const dispatch = useDispatch();
   const AuthReducer = useSelector(state => state.AuthReducer);
   const [phone, setPhone] = useState('');
@@ -38,23 +36,10 @@ function Login(props) {
   const [emptyString, setemptyString] = useState(false);
   const [regexmatch, setregexmatch] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [language, setLanguage] = useState('en');
   const onToggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
   const regex =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  // useEffect(() => {
-
-  //   async function changelange() {
-  //     setTimeout(async () => {
-  //       await i18n.changeLanguage("fr");
-  //     }, 5000);
-  //   }
-
-  //   changelange();
-
-  // }, []);
 
   const next = () => {
     if (phone.length == 0) {
@@ -68,7 +53,7 @@ function Login(props) {
     } else {
       connectionrequest()
         .then(() => {
-          console.log('Hello----->',phone,password)
+          console.log('Hello----->', phone, password);
           dispatch(
             signinRequest({
               username: phone,
@@ -88,16 +73,6 @@ function Login(props) {
       setemptyString(false);
     }
   };
-
-  // async function changeLanguageMode() {
-  //   if (language === "fr") {
-  //     setLanguage("en");
-  //     await i18n.changeLanguage("en");
-  //   } else {
-  //     setLanguage("fr");
-  //     await i18n.changeLanguage("fr");
-  //   }
-  // }
 
   return (
     <>
@@ -121,7 +96,7 @@ function Login(props) {
             </View>
             <View>
               {/* <TouchableOpacity onPress={changeLanguageMode}>
-                <Text style={{ color: "black" }}>Change language mode</Text>
+                <Text style={{color: 'black'}}>Change language mode</Text>
               </TouchableOpacity> */}
               <Text
                 style={{
