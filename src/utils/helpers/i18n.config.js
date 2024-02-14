@@ -2,8 +2,8 @@ import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import 'intl-pluralrules';
 
-import enUS from '../../assets/language/english.json'
-import frCA from '../../assets/language/french.json'
+import enUS from '../../assets/language/english.json';
+import frCA from '../../assets/language/french.json';
 
 const resources = {
   enUS: {translation: enUS},

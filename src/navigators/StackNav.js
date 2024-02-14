@@ -43,6 +43,7 @@ import {LanguageSplash} from '../screens/splashScreen/LanguageSplash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MapScreen} from '../screens/main/map';
 import OnBoarding from '../screens/auth/Onboarding';
+import {ChooseLanguage} from '../screens/main/ChooseLanguage';
 
 const Stack = createStackNavigator();
 
@@ -109,12 +110,14 @@ export default function StackNav() {
     RateCard: RateCard,
     Slots: Slots,
     MapScreen: MapScreen,
+    ChooseLanguage: ChooseLanguage,
   };
 
   const Screens =
     SplashReducer?.isOnBoarded == null
       ? OnBoard
-      : (LanguageReducer?.isLanguageSelected == null||LanguageReducer?.isLanguageSelected==false)
+      : LanguageReducer?.isLanguageSelected == null ||
+        LanguageReducer?.isLanguageSelected == false
       ? Language
       : AuthReducer?.token == null
       ? Auth
