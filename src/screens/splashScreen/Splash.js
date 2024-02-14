@@ -48,7 +48,6 @@ export default function Splash(props) {
           } else  {
             dispatch(setOnBoard('1'));
             dispatch(setLanguage(false));
-            
           }
         });
       } else {

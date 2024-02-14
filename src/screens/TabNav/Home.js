@@ -27,6 +27,7 @@ import connectionrequest from '../../utils/helpers/NetInfo';
 import {ProviderProfileRequest} from '../../redux/reducer/ProfileReducer';
 import showErrorAlert from '../../utils/helpers/Toast';
 import {useTranslation} from 'react-i18next';
+import { CurrentLocation } from '../../components/location';
 let status;
 
 function Home(props) {
@@ -34,6 +35,7 @@ function Home(props) {
   const dispatch = useDispatch();
   const ProfileReducer = useSelector(state => state.ProfileReducer);
   const [weekindex, setweekindex] = useState(0);
+  const [address, setAddress] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const SLIDER_WIDTH = Dimensions.get('window').width + 30;
   const {height, width} = Dimensions.get('screen');
@@ -286,6 +288,14 @@ function Home(props) {
     props.navigation.navigate('MapViewPage');
   }
 
+  const setLocation=(data)=>{
+    console.log("dataeqfewf",data)
+    setAddress(data)
+  }
+
+  useEffect(()=>{
+  
+  },[])
 
   return (
     <>
@@ -305,7 +315,8 @@ function Home(props) {
                   source={IMAGES.Location}
                   style={{height: normalize(20), width: normalize(20)}}
                 />
-                <Text style={styles.LocationText}>Ayodhya Nagar, Bhopal</Text>
+                <CurrentLocation setLocation={setLocation} />
+                <Text style={styles.LocationText}>{address}</Text>
               </View>
             </View>
             <TouchableOpacity
