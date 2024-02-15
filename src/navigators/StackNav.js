@@ -110,7 +110,7 @@ export default function StackNav() {
     RateCard: RateCard,
     Slots: Slots,
     MapScreen: MapScreen,
-    ChooseLanguage: ChooseLanguage,
+    Language: ChooseLanguage,
   };
 
   const Screens =

@@ -37,6 +37,7 @@ const LanguageInfo: LanguageModel[] = [
     title: 'French',
     code: 'frCA',
   },
+  
 ];
 
 const styles = StyleSheet.create({
@@ -51,20 +52,23 @@ const styles = StyleSheet.create({
   },
   renderContainer: {
     width: '100%',
-    height: '100%',
+    height: '60%',
     justifyContent: 'center',
     alignItems: 'center',
+    // backgroundColor:'red',
+    // marginTop:'10%'
   },
   renderSubContainer: {
     width: '100%',
-    height: '85%',
+    height: '100%',
+    // backgroundColor:'pink',
     justifyContent: 'center',
     borderColor: Colors.grey_cloud,
     borderWidth: normalize(1),
     borderRadius: normalize(5),
-    backgroundColor: '#fff',
-    elevation: 5,
-    shadowOffset: {width: 0, height: 1},
+    // backgroundColor: '#fff',
+    // elevation: 5,
+    // shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.3,
     shadowRadius: 2,
   },
@@ -152,6 +156,7 @@ export const ChooseLanguage = () => {
                 title={t('Choose Language')}
               />
               <FlatList
+                 contentContainerStyle={{height:'15%',marginTop:'10%'}}
                 data={LanguageInfo}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
