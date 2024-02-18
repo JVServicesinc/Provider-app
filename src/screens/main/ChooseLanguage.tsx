@@ -3,6 +3,7 @@ import {
   FlatList,
   Image,
   ListRenderItem,
+  Platform,
   SafeAreaView,
   StatusBar,
   StyleSheet,
@@ -13,6 +14,7 @@ import {getData, storeData} from '../../redux/LocalStore';
 import constants from '../../utils/helpers/constants';
 import i18n from '../../utils/helpers/i18n.config';
 import Header from '../../components/Header';
+import { useNavigation } from '@react-navigation/native';
 import {Colors} from '../../themes/Colors';
 import {Item} from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
 import {Fonts, IMAGES} from '../../themes/Themes';
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
 export const ChooseLanguage = () => {
   const {t} = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState<string>('');
-
+  const navigation:any = useNavigation();
   const changeLanguage = (language: string) => {
     storeData(constants.LANGUAGE, language, () => {
       i18n.changeLanguage(language);
@@ -145,16 +147,29 @@ export const ChooseLanguage = () => {
               <StatusBar backgroundColor={'#fff'} barStyle={'dark-content'} />
 
               <Header
-                back_button
-                back_img_source={IMAGES.Goback}
-                LeftImagehght={normalize(20)}
-                LeftImagewidth={normalize(20)}
-                leftImagebackground={'#F3F3F3'}
-                ImagePadding={normalize(5)}
-                LeftImggborderradius={normalize(10)}
-                gobackmarginLeft={normalize(10)}
-                title={t('Choose Language')}
-              />
+        back_button
+        back_img_source={IMAGES.Goback}
+        LeftImagehght={normalize(20)}
+        LeftImagewidth={normalize(20)}
+        leftImagebackground={'#A0A0A0'}
+        ImagePadding={normalize(3)}
+        LeftImggborderradius={normalize(10)}
+        gobackmarginLeft={normalize(10)}
+        justifyContent={'space-between'}
+        backmargintop={Platform.OS == 'android' ? normalize(20) : normalize(20)}
+        text
+        textRight={normalize(15)}
+        title={'Choose Language'}
+        textcolor={'black'}
+        textfont={Fonts.PoppinsSemiBold}
+        textSize={normalize(20)}
+        textAlign={'center'}
+        RightImage
+        textmartop={Platform.OS == 'android' ? normalize(28) : normalize(20)}
+        onPress_back_button={() => {
+           navigation.navigate('Home')
+        }}
+      />
               <FlatList
                  contentContainerStyle={{height:'15%',marginTop:'10%'}}
                 data={LanguageInfo}

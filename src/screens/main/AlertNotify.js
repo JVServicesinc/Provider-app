@@ -30,7 +30,7 @@ import { AcceptBookingRequest, RejectBookingRequest } from '../../redux/reducer/
 
 
 function AlertNotify(props) {
-  console.log("booking data-------->", props?.route?.params?.bookingData?.uniq_order_id)
+  // console.log("booking data-------->",typeof props.route.params.bookingData.details.details)
 
   const [notifyDetails, setnotyfyDetail] = useState(false);
   const modalref = useRef(null);
@@ -38,6 +38,8 @@ function AlertNotify(props) {
   const [AcceptRequestModal, setAcceptRequestModal] = useState(false);
   const dispatch = useDispatch();
   const bookingData = props.route.params?.bookingData ?? null;
+  const data=props.route.params?.bookingData?JSON.parse(bookingData.details):{}
+  // console.log("booking data-------->000",Object.values(data.details))
 
   const RequestService = [
     {
@@ -54,20 +56,9 @@ function AlertNotify(props) {
     },
   ];
 
-  const reasondescription = [
-    {
-      id: 1,
-      title: '45 mins',
-    },
-    {
-      id: 2,
-      title: 'For all skin types. Pinacolada mask.',
-    },
-    {
-      id: 3,
-      title: '6-step process. Includes 10-min massage',
-    },
-  ];
+  // const reasondescription = [
+  //   ...data.details
+  // ];
 
   const children = ({ remainingTime }) => {
     const minutes = Math.floor(remainingTime / 60)
@@ -101,7 +92,7 @@ function AlertNotify(props) {
           },
         ]}>
         <View style={styles.ViewDot} />
-        <Text style={styles.serViceText}>{item?.title}</Text>
+        <Text style={styles.serViceText}>{item}</Text>
       </View>
     );
   };
@@ -179,7 +170,7 @@ function AlertNotify(props) {
                   fontFamily: Fonts.PoppinsBold,
                   marginTop: normalize(25),
                 }}>
-                {bookingData?.order_items[0]?.servie_name}
+                {bookingData?.serviceName}
               </Text>
               <View
                 style={{
@@ -187,10 +178,10 @@ function AlertNotify(props) {
                   alignItems: 'center',
                   marginTop: normalize(5),
                 }}>
-                <Image
+                {/* <Image
                   source={bookingData?.order_items[0]?.service_image_url}
                   style={{ height: normalize(15), width: normalize(15) }}
-                />
+                /> */}
                 <Text
                   style={{
                     color: 'white',
@@ -198,7 +189,7 @@ function AlertNotify(props) {
                     fontSize: normalize(14),
                     marginLeft: normalize(5),
                   }}>
-                  4.8 (23k)
+                  {`$ ${data.price} (${data.rating})`}
                 </Text>
               </View>
               <Text
@@ -209,10 +200,10 @@ function AlertNotify(props) {
                   marginLeft: normalize(5),
                   marginTop: normalize(5),
                 }}>
-                ${bookingData?.total}
+                {/* ${bookingData?.total} */}
               </Text>
               <FlatList
-                data={reasondescription}
+                data={Object.values(data.details)}
                 renderItem={renderreasondescription}
                 showsVerticalScrollIndicator={false}
               />

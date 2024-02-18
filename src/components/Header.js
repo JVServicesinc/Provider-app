@@ -77,6 +77,11 @@ export default function Header(props) {
           source={props.rightImagesrc}
         />
       )}
+      {props.centerImage && (
+        <View style={{backgroundColor:'red',height:"70%",width:"30%",position:'absolute',top:'50%',alignSelf:'center',left:'35%'}}>
+          <Image style={{height:"100%",width:'100%',resizeMode:'cover'}} source={props.rightImagesrc}/>
+        </View> 
+      )}
     </View>
   );
 }

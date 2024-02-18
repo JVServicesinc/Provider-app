@@ -154,6 +154,7 @@ export default function DrawerMenu(props) {
                 });
             index == 8 && navigation.navigate('AlertNotify');
             index == 9 && navigation.navigate('Slots');
+            index==5&&navigation.navigate('AboutUs')
           }}
           style={{
             flexDirection: 'row',
@@ -190,8 +191,8 @@ export default function DrawerMenu(props) {
     <Modal
       animationIn={'fadeInLeftBig'}
       animationOut={'fadeOutLeftBig'}
-      animationInTiming={700}
-      animationOutTiming={700}
+      animationInTiming={500}
+      animationOutTiming={500}
       backdropTransitionOutTiming={0}
       hideModalContentWhileAnimating={true}
       statusBarTranslucent={true}

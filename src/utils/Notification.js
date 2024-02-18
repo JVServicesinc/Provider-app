@@ -25,11 +25,13 @@ export const getFcmToken = async () => {
 export const notificationListener = () => {
   //   const dispatch = useDispatch();
   messaging().onNotificationOpenedApp(remoteMessage => {
-    console.log(
-      'Notification caused app to open from background state:',
-      remoteMessage.notification,
-    );
-    navigate('AlertNotify');
+    // console.log(
+    //   'Notification caused app to open from background state:',
+    //   remoteMessage.notification.body,
+    // );
+    const message=JSON.parse(remoteMessage.notification.body)
+    const data=message.data
+    navigate('AlertNotify',{bookingData: data});
   });
 
   // Quiet and Background State -> Check whether an initial notification is available
@@ -42,7 +44,10 @@ export const notificationListener = () => {
           remoteMessage.notification,
         );
         setTimeout(() => {
-          navigate('AlertNotify',{bookingData: remoteMessage?.data});
+          const message=JSON.parse(remoteMessage.notification.body)
+             const data=message.data
+           navigate('AlertNotify',{bookingData: data});
+          // navigate('AlertNotify',{bookingData: remoteMessage?.data});
         }, 3000);
       }
     })
@@ -51,6 +56,8 @@ export const notificationListener = () => {
   // Foreground State
   messaging().onMessage(async remoteMessage => {
     console.log('foreground', remoteMessage);
-    navigate('AlertNotify',{bookingData: remoteMessage?.data});
+    const message=JSON.parse(remoteMessage.notification.body)
+    const data=message.data
+    navigate('AlertNotify',{bookingData: data});
   });
 };

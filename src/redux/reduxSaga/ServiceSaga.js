@@ -67,6 +67,7 @@ export function* GetSlotsSaga(action) {
   };
   try {
     let response = yield call(getApi, 'provider/slots', header);
+    console.log('RESONSE SDOMF',response.data)
 
     if (response?.status == 200) {
       yield put(GetSlotsSuccess(response?.data));

@@ -52,7 +52,7 @@ export default function Picker(props) {
             borderWidth: normalize(2),
             overflow: 'hidden',
             borderColor: props.backgroundColor,
-            maxHeight: normalize(200),
+            maxHeight: props.height?props.height:normalize(200),
             paddingLeft: props.paddingLeft,
             paddingBottom: Platform.OS == 'ios' ? normalize(16) : 0,
           }}>

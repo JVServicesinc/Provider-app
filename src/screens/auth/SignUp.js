@@ -43,7 +43,9 @@ function SignUp(props) {
   const [email, setemail] = useState('');
   const [Password, setPassword] = useState('');
   const [city, setcity] = useState('');
+  const [cities,setCities]=useState('')
   const [WorktypeModal, setWorktypeModal] = useState(false);
+  const [cityModal, setCityModal] = useState(false);
   const [WorktypeName, setWorktypeName] = useState('');
 
   const [emptyString, setemptyString] = useState(false);
@@ -70,12 +72,28 @@ function SignUp(props) {
         showErrorAlert('Please connect to internet');
       });
   }, []);
+  
 
   // Handle user state changes
   function onAuthStateChanged(user) { }
 
-  useEffect(() => {
+  const getCitiesList=(data)=>{
+    const cities=fetch("https://countriesnow.space/api/v0.1/countries/cities", {
+      method: "POST",
+      body: JSON.stringify({
+        country:data=='+91'?'india':'canada'
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    })
+      .then((response) => response.json())
+      .then((json) => setCities(json.data));
+  }
+
+  useEffect(async () => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    getCitiesList(countryCode)
     return subscriber; // unsubscribe on unmount
   }, []);
 
@@ -96,7 +114,12 @@ function SignUp(props) {
       setregexemailchk(true);
     } else if (Password == '') {
       setemptyString5(true);
-    } else if (city == '') {
+    
+    }else if(Password!==''&&Password.length<8){
+      setemptyString5(true);
+      showErrorAlert(t('Password should be more than 8 characters'));
+    } 
+    else if (city == '') {
       showErrorAlert(t('enterCity'));
       setemptyString3(true);
     } else if (WorktypeName == '') {
@@ -203,6 +226,7 @@ function SignUp(props) {
           justifyContent: 'center',
         }}
         onPress={() => {
+          getCitiesList(item?.code)
           setCountryCode(item?.code);
           setFlag(item?.flag);
           setShow(!show);
@@ -295,14 +319,16 @@ function SignUp(props) {
         gobackmarginLeft={normalize(10)}
         justifyContent={'space-between'}
         backmargintop={Platform.OS == 'android' ? normalize(50) : normalize(20)}
-        text
+        // text
+        rightImagesrc={IMAGES.logo}
         textRight={normalize(25)}
-        title={'JEveux'}
+        // title={'JEveux'}
         textcolor={'black'}
         textfont={Fonts.PoppinsSemiBold}
         textSize={normalize(25)}
         textAlign={'center'}
-        RightImage
+        // RightImage
+        centerImage
         textmartop={Platform.OS == 'android' ? normalize(50) : normalize(20)}
         onPress_back_button={() => {
           props.navigation.goBack();
@@ -401,12 +427,12 @@ function SignUp(props) {
                 padding: normalize(2),
                 // alignSelf:'center',
                 position: 'absolute',
-                bottom: normalize(20),
+                bottom: normalize(80),
                 // opacity:0
                 zIndex: 99,
                 left: normalize(15),
                 // height:normalize(20)
-                marginTop: normalize(20), // r
+                marginTop: normalize(5), // r
               }}>
               <FlatList data={countryData} renderItem={renderCountry} />
             </View>
@@ -445,7 +471,7 @@ function SignUp(props) {
             fontFamily={Fonts.PoppinsMedium}
             textmarleft={Platform.OS == 'ios' ? normalize(10) : normalize(5)}
           />
-
+{/* 
           <NewTextInput
             width={'90%'}
             borderRadius={normalize(10)}
@@ -462,7 +488,48 @@ function SignUp(props) {
             borderWidth={normalize(1)}
             fontFamily={Fonts.PoppinsMedium}
           // marginLeft={normalize(10)}
-          />
+          /> */}
+          <Picker
+          backgroundColor={'white'}
+          dataList={cities}
+          modalVisible={cityModal}
+          paddingLeft={normalize(0)}
+          modalHeading
+          height={normalize(500)}
+          TextmodalHeading={t("Choose Your City")}
+          ModalDown={true}
+          modalDown={() => {
+            setCityModal(!cityModal);
+          }}
+          onBackdropPress={() => setCityModal(!cityModal)}
+          renderData={({ item, index }) => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  setcity(item);
+
+                  setCityModal(false);
+                }}
+                style={[styles.dropDownItem]}>
+                <Text style={[styles.dropDownItemText]}>{item}</Text>
+              </TouchableOpacity>
+            );
+          }}
+        />
+        <Dropdown
+          width={'90%'}
+          borderWidth={normalize(1)}
+          height={normalize(42)}
+          borderColor={emptyString4 ? 'red' : '#79747E'}
+          rightIcon={IMAGES.DownArrow2}
+          iconHeight={normalize(15)}
+          iconWidth={normalize(15)}
+          marginTop={normalize(15)}
+          value={city == '' ? t("City") : city}
+          onPress={() => {
+            setCityModal(!cityModal);
+          }}
+        />
         </KeyboardAvoidingView>
         <Picker
           backgroundColor={'white'}

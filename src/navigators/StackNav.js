@@ -43,6 +43,7 @@ import {LanguageSplash} from '../screens/splashScreen/LanguageSplash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MapScreen} from '../screens/main/map';
 import OnBoarding from '../screens/auth/Onboarding';
+import { AboutUs } from '../screens/main/AboutUs';
 import {ChooseLanguage} from '../screens/main/ChooseLanguage';
 
 const Stack = createStackNavigator();
@@ -110,6 +111,7 @@ export default function StackNav() {
     RateCard: RateCard,
     Slots: Slots,
     MapScreen: MapScreen,
+    AboutUs:AboutUs,
     Language: ChooseLanguage,
   };
 
